@@ -21,12 +21,21 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+const allowedOrigins = process.env.FRONTEND_URL?.split(',') || [];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // frontend URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+
 
 
 // Body parser middleware
