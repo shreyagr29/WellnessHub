@@ -9,7 +9,6 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
-// Register
 router.post('/register', [
   body('email').isEmail().withMessage('Enter a valid email'),
   body('password').isLength({ min: 6 }).withMessage('Password too short')
@@ -32,7 +31,6 @@ router.post('/register', [
   });
 });
 
-// Login
 router.post('/login', [
   body('email').isEmail().withMessage('Enter a valid email'),
   body('password').notEmpty().withMessage('Password is required')

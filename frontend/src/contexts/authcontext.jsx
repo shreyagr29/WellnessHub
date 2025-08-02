@@ -3,7 +3,6 @@ import authService from '../services/AuthService';
 
 const AuthContext = createContext();
 
-// Custom hook to use auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -16,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Initial auth check on app load
   useEffect(() => {
     const initializeAuth = async () => {
       try {
@@ -36,7 +34,6 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
-  // Login handler
   const login = async (email, password) => {
     try {
       const { user } = await authService.login(email, password);
@@ -48,7 +45,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Registration handler
   const register = async (email, password) => {
     try {
       const { user } = await authService.register(email, password);
@@ -60,7 +56,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout handler
   const logout = () => {
     authService.logout();
     setUser(null);

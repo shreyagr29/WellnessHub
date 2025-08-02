@@ -47,7 +47,7 @@ const SessionEditor = () => {
 
   const handleAutoSave = async (data) => {
     if (!data.title.trim() || !data.json_file_url.trim()) {
-      return // Don't auto-save empty sessions
+      return 
     }
 
     try {
@@ -61,7 +61,6 @@ const SessionEditor = () => {
       const response = await sessionService.saveDraft(sessionData)
       setLastSaved(new Date())
       
-      // If this was a new session, redirect to edit mode
       if (!isEditing && response.session._id) {
         navigate(`/sessions/edit/${response.session._id}`, { replace: true })
       }
@@ -72,7 +71,6 @@ const SessionEditor = () => {
     }
   }
 
-  // Auto-save hook
   useAutoSave(formData, handleAutoSave, 5000)
 
   const handleChange = (e) => {
@@ -100,7 +98,6 @@ const SessionEditor = () => {
       setLastSaved(new Date())
       toast.success('Draft saved successfully!')
       
-      // If this was a new session, redirect to edit mode
       if (!isEditing && response.session._id) {
         navigate(`/sessions/edit/${response.session._id}`, { replace: true })
       }
@@ -117,7 +114,6 @@ const SessionEditor = () => {
       return
     }
 
-    // Validate URL format
     try {
       new URL(formData.json_file_url)
     } catch {

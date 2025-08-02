@@ -9,7 +9,7 @@ import { Plus, FileText, Eye } from 'lucide-react'
 const MySessions = () => {
   const [sessions, setSessions] = useState([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState('all') // all, draft, published
+  const [filter, setFilter] = useState('all') 
 
   useEffect(() => {
     fetchMySessions()

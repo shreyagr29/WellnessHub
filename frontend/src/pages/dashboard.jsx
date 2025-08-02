@@ -23,7 +23,6 @@ const Dashboard = () => {
       const response = await sessionService.getPublicSessions()
       setSessions(response.sessions)
       
-      // Extract unique tags
       const tags = new Set()
       response.sessions.forEach(session => {
         session.tags?.forEach(tag => tags.add(tag))

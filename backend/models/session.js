@@ -32,7 +32,6 @@ const sessionSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for better query performance
 sessionSchema.index({ user_id: 1, status: 1 });
 sessionSchema.index({ status: 1, createdAt: -1 });
 sessionSchema.index({ tags: 1 });

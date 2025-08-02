@@ -3,21 +3,16 @@ const Session = require('../models/session');
 
 const router = express.Router();
 
-// @route   GET /api/sessions
-// @desc    Get all published sessions
-// @access  Public
 router.get('/', async (req, res) => {
   try {
     const { page = 1, limit = 10, tags } = req.query;
     
-    // Build query
     const query = { status: 'published' };
     if (tags) {
       const tagArray = tags.split(',').map(tag => tag.trim());
       query.tags = { $in: tagArray };
     }
 
-    // Execute query with pagination
     const sessions = await Session.find(query)
       .populate('user_id', 'email')
       .sort({ createdAt: -1 })
@@ -43,9 +38,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   GET /api/sessions/:id
-// @desc    Get a specific published session
-// @access  Public
 router.get('/:id', async (req, res) => {
   try {
     const session = await Session.findOne({

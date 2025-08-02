@@ -5,13 +5,8 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Protect all routes
 router.use(auth);
 
-/**
- * GET /api/my-sessions
- * Get all sessions (drafts + published) of the logged-in user
- */
 router.get('/', async (req, res) => {
   try {
     const { status, page = 1, limit = 10 } = req.query;
@@ -43,10 +38,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-/**
- * GET /api/my-sessions/:id
- * Get a single session by ID
- */
 router.get('/:id', async (req, res) => {
   try {
     const session = await Session.findOne({
@@ -66,10 +57,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-/**
- * POST /api/my-sessions/save-draft
- * Create or update a draft session
- */
 router.post('/save-draft', [
   body('title')
     .trim()
@@ -128,10 +115,6 @@ router.post('/save-draft', [
   }
 });
 
-/**
- * POST /api/my-sessions/publish
- * Create or update a published session
- */
 router.post('/publish', [
   body('title')
     .trim()
@@ -190,10 +173,6 @@ router.post('/publish', [
   }
 });
 
-/**
- * DELETE /api/my-sessions/:id
- * Delete a user's session
- */
 router.delete('/:id', async (req, res) => {
   try {
     const session = await Session.findOne({
